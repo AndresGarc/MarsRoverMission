@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer("outcome");
             $table->integer("position_x");
             $table->integer("position_y");
+            $table->string("direction");
             $table->string("details");
             $table->timestamps();
         });

@@ -10,7 +10,7 @@ class GetRoverPositionAction
 {
     public static function execute(int $rover_id)
     {
-        $position = MovementLog::select('rover_id', 'position_x', 'position_y')
+        $position = MovementLog::select('rover_id', 'position_x', 'position_y', 'direction')
             ->where('rover_id', $rover_id)
             ->first();
 

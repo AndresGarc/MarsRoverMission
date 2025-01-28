@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Http\Controllers;
 
+use App\Enums\RoverDirection;
 use App\Models\MovementLog;
 use App\Models\Rover;
 use Illuminate\Http\Response;
@@ -22,6 +23,7 @@ class GetRoverPositionControllerTest extends TestCase
             'outcome' => RoverMovementOutcome::Success,
             'position_x' => 0,
             'position_y' => 0,
+            'direction' => RoverDirection::North,
             'details' => '',
         ]);
     }
@@ -34,12 +36,14 @@ class GetRoverPositionControllerTest extends TestCase
             ->assertJsonStructure([
                 'rover_id',
                 'position_x',
-                'position_y'
+                'position_y',
+                'direction'
             ])
             ->assertJsonFragment([
                 'rover_id' => 1,
                 'position_x' => 0,
-                'position_y' => 0
+                'position_y' => 0,
+                'direction' => RoverDirection::North,
             ]);
     }
 
