@@ -18,8 +18,8 @@ class MovementLog extends Model
         'rover_id',
         'commands',
         'outcome',
-        'position_x',
-        'position_y',
+        'row',
+        'column',
         'direction',
         'details' 
     ];

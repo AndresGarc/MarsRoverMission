@@ -23,9 +23,9 @@ class MoveRoverControllerTest extends TestCase
             'rover_id' => 1,
             'commands' => 'Landing',
             'outcome' => RoverMovementOutcome::Success,
-            'position_x' => 100,
-            'position_y' => 100,
-            'direction' => RoverDirection::North,
+            'row' => 0,
+            'column' => 0,
+            'direction' => RoverDirection::South,
             'details' => 'First foot on Mars'
         ]);
     }
@@ -39,9 +39,9 @@ class MoveRoverControllerTest extends TestCase
                 'rover_id' => 1,
                 'commands' => 'FFF',
                 'outcome' => RoverMovementOutcome::Success,
-                'position_x' => 100,
-                'position_y' => 103,
-                'direction' => RoverDirection::North,
+                'row' => 3,
+                'column' => 0,
+                'direction' => RoverDirection::South,
                 'details' => ''
             ]);
 

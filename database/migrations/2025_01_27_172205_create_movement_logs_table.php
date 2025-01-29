@@ -16,8 +16,8 @@ return new class extends Migration
             $table->foreignId('rover_id');
             $table->string("commands");
             $table->integer("outcome");
-            $table->integer("position_x");
-            $table->integer("position_y");
+            $table->integer("row");
+            $table->integer("column");
             $table->string("direction");
             $table->string("details");
             $table->timestamps();

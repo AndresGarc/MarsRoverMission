@@ -21,8 +21,8 @@ class GetRoverPositionControllerTest extends TestCase
             'rover_id' => 1,
             'commands' => 'FFRRFFFRL',
             'outcome' => RoverMovementOutcome::Success,
-            'position_x' => 0,
-            'position_y' => 0,
+            'row' => 0,
+            'column' => 0,
             'direction' => RoverDirection::North,
             'details' => '',
         ]);
@@ -35,14 +35,14 @@ class GetRoverPositionControllerTest extends TestCase
             ->assertStatus(Response::HTTP_OK)
             ->assertJsonStructure([
                 'rover_id',
-                'position_x',
-                'position_y',
+                'row',
+                'column',
                 'direction'
             ])
             ->assertJsonFragment([
                 'rover_id' => 1,
-                'position_x' => 0,
-                'position_y' => 0,
+                'row' => 0,
+                'column' => 0,
                 'direction' => RoverDirection::North,
             ]);
     }

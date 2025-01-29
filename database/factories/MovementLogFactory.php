@@ -21,8 +21,8 @@ class MovementLogFactory extends Factory
             'rover_id' => $this->faker->numberBetween(0,10),
             'commands' => 'FFRRFFFRL',
             'outcome' => $this->faker->randomElement(RoverMovementOutcome::cases()),
-            'position_x' => $this->faker->numberBetween(0,200),
-            'position_y' => $this->faker->numberBetween(0,200),
+            'row' => $this->faker->numberBetween(0,200),
+            'column' => $this->faker->numberBetween(0,200),
             'details' => $this->faker->text(150)
         ];
     }
