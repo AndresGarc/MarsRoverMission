@@ -52,7 +52,23 @@ class GetRoverPositionControllerTest extends TestCase
         $this->json('get', '/api/rover/6/position')
             ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertJsonFragment([
-                'error' => 'Rover not Found, please try another'
+                "message" => "The selected id is invalid.",
+                "errors" => [
+                  "id" => [
+                    0 => "The selected id is invalid."
+                  ]
+                ]
+            ]);
+    }
+
+    public function test_return_proper_error_information_when_the_rover_exists_but_didnt_land_yet()
+    {
+        Rover::factory()->create(); 
+
+        $this->json('get', '/api/rover/2/position')
+            ->assertStatus(Response::HTTP_NOT_FOUND)
+            ->assertJsonFragment([
+                "error" =>  "Rover not landed yet, please contact command tower."
             ]);
     }
 

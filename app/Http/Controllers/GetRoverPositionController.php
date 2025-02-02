@@ -3,28 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Actions\GetRoverPositionAction;
-use Illuminate\Http\Request;
-use App\Models\MovementLog;
-use Exception;
+use App\Exceptions\RoverNotLanded;
+use App\Http\Requests\GetRoverPositionRequest;
 
 class GetRoverPositionController extends Controller
 {
     /**
      * Handle the incoming request.
      */
-    public function __invoke(Request $request, int $id)
+    public function __invoke(GetRoverPositionRequest $request)
     {
         try {
-            
             return response()
-                ->json(GetRoverPositionAction::execute($id));
+                ->json(GetRoverPositionAction::execute($request->validated("id")));
 
-        } catch(Exception $e) {
+        } catch(RoverNotLanded $e) {
 
             return response()
                 ->json([
                     'error' => $e->getMessage()
-                ], 422);
+                ], 404);
         }
     }
 }

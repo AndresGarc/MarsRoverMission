@@ -3,6 +3,7 @@
 namespace App\Actions;
 
 use App\Exceptions\RoverNotFoundException;
+use App\Exceptions\RoverNotLanded;
 use App\Models\MovementLog;
 
 class GetRoverPositionAction
@@ -15,7 +16,7 @@ class GetRoverPositionAction
             ->first();
 
         if (!isset($position)) {
-            throw new RoverNotFoundException();
+            throw new RoverNotLanded();
         }
 
         return $position;
