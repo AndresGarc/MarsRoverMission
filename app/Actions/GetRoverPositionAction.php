@@ -4,8 +4,6 @@ namespace App\Actions;
 
 use App\Exceptions\RoverNotFoundException;
 use App\Models\MovementLog;
-use Exception;
-use Illuminate\Support\Facades\Log;
 
 class GetRoverPositionAction
 {
@@ -13,6 +11,7 @@ class GetRoverPositionAction
     {
         $position = MovementLog::select('rover_id', 'row', 'column', 'direction')
             ->where('rover_id', $rover_id)
+            ->orderBy('created_at', 'desc')
             ->first();
 
         if (!isset($position)) {

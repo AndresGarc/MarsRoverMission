@@ -202,6 +202,63 @@ class MoveRoverActionTest extends TestCase
         $this->assertEquals($result->column, 0);
         $this->assertEquals($result->direction, RoverDirection::North);
         $this->assertEquals($result->details, 'Out of Mars borders on: (-1,0)');
+
+        MovementLog::factory()->create([
+            'rover_id' => 2,
+            'commands' => 'Landing',
+            'outcome' => RoverMovementOutcome::Success,
+            'row' => 0,
+            'column' => 199,
+            'direction' => RoverDirection::East,
+            'details' => 'First foot on Mars'
+        ]);
+
+        $result = (new MoveRoverAction())->execute(rover_id: 2, sequence: 'FFFF');
+
+        $this->assertEquals($result->commands, 'FFFF');
+        $this->assertEquals($result->outcome, RoverMovementOutcome::Failure);
+        $this->assertEquals($result->row, 0);
+        $this->assertEquals($result->column, 199);
+        $this->assertEquals($result->direction, RoverDirection::East);
+        $this->assertEquals($result->details, 'Out of Mars borders on: (0,200)');
+
+        MovementLog::factory()->create([
+            'rover_id' => 3,
+            'commands' => 'Landing',
+            'outcome' => RoverMovementOutcome::Success,
+            'row' => 199,
+            'column' => 199,
+            'direction' => RoverDirection::South,
+            'details' => 'First foot on Mars'
+        ]);
+
+        $result = (new MoveRoverAction())->execute(rover_id: 3, sequence: 'FFFF');
+
+        $this->assertEquals($result->commands, 'FFFF');
+        $this->assertEquals($result->outcome, RoverMovementOutcome::Failure);
+        $this->assertEquals($result->row, 199);
+        $this->assertEquals($result->column, 199);
+        $this->assertEquals($result->direction, RoverDirection::South);
+        $this->assertEquals($result->details, 'Out of Mars borders on: (200,199)');
+
+        MovementLog::factory()->create([
+            'rover_id' => 1,
+            'commands' => 'Reposition',
+            'outcome' => RoverMovementOutcome::Success,
+            'row' => 199,
+            'column' => 0,
+            'direction' => RoverDirection::West,
+            'details' => ''
+        ]);
+
+        $result = (new MoveRoverAction())->execute(rover_id: 1, sequence: 'FFFF');
+
+        $this->assertEquals($result->commands, 'FFFF');
+        $this->assertEquals($result->outcome, RoverMovementOutcome::Failure);
+        $this->assertEquals($result->row, 199);
+        $this->assertEquals($result->column, 0);
+        $this->assertEquals($result->direction, RoverDirection::West);
+        $this->assertEquals($result->details, 'Out of Mars borders on: (199,-1)');
     }
 
     public function test_a_rover_cannot_move_where_a_rover_is_in_that_position()
@@ -235,6 +292,37 @@ class MoveRoverActionTest extends TestCase
         $this->assertEquals($result->direction, RoverDirection::South);
         $this->assertEquals($result->details, 'Another rover in the position: (1,0)');
     
+    }
+
+    public function test_move_multiple_times_a_rover()
+    {
+        MovementLog::factory()->create([
+            'rover_id' => 1,
+            'commands' => 'Landing',
+            'outcome' => RoverMovementOutcome::Success,
+            'row' => 0,
+            'column' => 0,
+            'direction' => RoverDirection::East,
+            'details' => '',
+        ]);
+
+        sleep(0.25);
+
+        $result = (new MoveRoverAction())->execute(rover_id: 1, sequence: 'FFFRFF');
+
+        $this->assertEquals($result->commands, 'FFFRFF');
+        $this->assertEquals($result->outcome, RoverMovementOutcome::Success);
+        $this->assertEquals($result->row, 2);
+        $this->assertEquals($result->column, 3);
+        $this->assertEquals($result->direction, RoverDirection::South);
+        $this->assertEquals($result->details, '');
+
+        $result = (new MoveRoverAction())->execute(rover_id: 1, sequence: 'RFLF');
+
+        $this->assertEquals($result->commands, 'RFLF');
+        $this->assertEquals($result->outcome, RoverMovementOutcome::Success);
+        $this->assertEquals($result->direction, RoverDirection::South);
+        $this->assertEquals($result->details, '');
     }
 
 }

@@ -9,7 +9,6 @@ use App\Exceptions\ObstacleEncounteredException;
 use App\Exceptions\OutOfMarsBordersException;
 use App\Models\MovementLog;
 use App\Models\Rover;
-use Exception;
 use Illuminate\Support\Facades\File;
 
 class MoveRoverAction
@@ -140,7 +139,7 @@ class MoveRoverAction
 
     private function isOutOfBorders(int $row, int $column) : bool
     {
-        return ($row > 200 || $row < 0 || $column > 200 || $column < 0 );
+        return ($row >= 200 || $row < 0 || $column >= 200 || $column < 0 );
     }
 
     private function isAnObstacle(mixed $map, int $row, int $column) : bool
