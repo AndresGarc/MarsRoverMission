@@ -13,7 +13,7 @@ class MovementLog extends Model
     /** @use HasFactory<\Database\Factories\MovementLogFactory> */
     use HasFactory;
 
-    protected $dateFormat = 'd/m/Y h:m:s.u';
+    protected $dateFormat = 'd/m/Y H:i:s.u';
 
     protected $fillable = [
         'rover_id',
