@@ -21,5 +21,17 @@ class RoverSeeder extends Seeder
 
         Rover::factory()
             ->create(['name' => 'Rover 3']);
+
+        Rover::factory()
+            ->create(['name' => 'Rover 4']);
+
+        Rover::factory()
+            ->create(['name' => 'Rover 5']);
+
+        Rover::factory()
+            ->create(['name' => 'Rover 6']);
+
+        Rover::factory()
+            ->create(['name' => 'Rover 7']);
     }
 }

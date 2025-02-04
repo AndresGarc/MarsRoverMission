@@ -14,7 +14,7 @@
         
     </head>
 
-    <body>
+    <body class="flex justify-center items-center h-screen bg-gradient-to-r from-red-950 to-red-700">
         <div id="app"></div>
     </body>
 
