@@ -42,7 +42,7 @@ class MoveRoverControllerTest extends TestCase
                 'row' => 0,
                 'column' => 3,
                 'direction' => RoverDirection::East,
-                'details' => ''
+                'details' => 'Rover moved correctly to: (0,3), E'
             ]);
 
 
@@ -55,7 +55,7 @@ class MoveRoverControllerTest extends TestCase
                 'row' => 4,
                 'column' => 11,
                 'direction' => RoverDirection::East,
-                'details' => ''
+                'details' => 'Rover moved correctly to: (4,11), E'
             ]);
     }
 

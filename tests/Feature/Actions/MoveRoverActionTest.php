@@ -47,7 +47,7 @@ class MoveRoverActionTest extends TestCase
         $this->assertEquals($result->row, 0);
         $this->assertEquals($result->column, 0);
         $this->assertEquals($result->direction, RoverDirection::North);
-        $this->assertEquals($result->details, '');
+        $this->assertEquals($result->details, 'Rover moved correctly to: (0,0), N');
     }
 
     public function test_rover_can_move_forward_looking_south_without_obstacles()
@@ -69,7 +69,7 @@ class MoveRoverActionTest extends TestCase
         $this->assertEquals($result->row, 3);
         $this->assertEquals($result->column, 0);
         $this->assertEquals($result->direction, RoverDirection::South);
-        $this->assertEquals($result->details, '');
+        $this->assertEquals($result->details, 'Rover moved correctly to: (3,0), S');
     }
 
     public function test_rover_can_move_forward_looking_east_without_obstacles()
@@ -91,7 +91,7 @@ class MoveRoverActionTest extends TestCase
         $this->assertEquals($result->row, 0);
         $this->assertEquals($result->column, 3);
         $this->assertEquals($result->direction, RoverDirection::East);
-        $this->assertEquals($result->details, '');
+        $this->assertEquals($result->details, 'Rover moved correctly to: (0,3), E');
     }
 
     public function test_rover_can_move_forward_looking_west_without_obstacles()
@@ -113,7 +113,7 @@ class MoveRoverActionTest extends TestCase
         $this->assertEquals($result->row, 0);
         $this->assertEquals($result->column, 0);
         $this->assertEquals($result->direction, RoverDirection::West);
-        $this->assertEquals($result->details, '');
+        $this->assertEquals($result->details, 'Rover moved correctly to: (0,0), W');
     }
 
     public function test_rover_can_change_direction_and_keep_moving_properly_without_obstacles()
@@ -135,7 +135,7 @@ class MoveRoverActionTest extends TestCase
         $this->assertEquals($result->row, 1);
         $this->assertEquals($result->column, 2);
         $this->assertEquals($result->direction, RoverDirection::East);
-        $this->assertEquals($result->details, '');
+        $this->assertEquals($result->details, 'Rover moved correctly to: (1,2), E');
     }
 
     public function test_rover_can_execute_a_complex_route_without_obstacles()
@@ -157,7 +157,7 @@ class MoveRoverActionTest extends TestCase
         $this->assertEquals($result->row, 1);
         $this->assertEquals($result->column, 2);
         $this->assertEquals($result->direction, RoverDirection::North);
-        $this->assertEquals($result->details, '');
+        $this->assertEquals($result->details, 'Rover moved correctly to: (1,2), N');
     }
 
     public function test_a_rover_encounters_an_obstacle()
@@ -315,14 +315,16 @@ class MoveRoverActionTest extends TestCase
         $this->assertEquals($result->row, 2);
         $this->assertEquals($result->column, 3);
         $this->assertEquals($result->direction, RoverDirection::South);
-        $this->assertEquals($result->details, '');
+        $this->assertEquals($result->details, 'Rover moved correctly to: (2,3), S');
 
         $result = (new MoveRoverAction())->execute(rover_id: 1, sequence: 'RFLF');
 
         $this->assertEquals($result->commands, 'RFLF');
         $this->assertEquals($result->outcome, RoverMovementOutcome::Success);
+        $this->assertEquals($result->row, 3);
+        $this->assertEquals($result->column, 2);
         $this->assertEquals($result->direction, RoverDirection::South);
-        $this->assertEquals($result->details, '');
+        $this->assertEquals($result->details, 'Rover moved correctly to: (3,2), S');
     }
 
 }

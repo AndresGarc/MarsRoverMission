@@ -78,7 +78,7 @@ class MoveRoverAction
             'row' => $row,
             'column' => $column,
             'direction' => $direction,
-            'details' => ''
+            'details' => 'Rover moved correctly to: (' . $row . ',' . $column . '), ' . $direction->value
         ]);
 
 
