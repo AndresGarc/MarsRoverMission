@@ -32,7 +32,10 @@
 
     const sendSequence = async() => {
         loading.value = true;
-        if (!validateForm()) return;
+        if (!validateForm()) {
+            loading.value = false;
+            return;
+        }
         
             //add loader icon
         await axios.post('rover/' + props.rover_selected + '/move', {
@@ -44,6 +47,7 @@
             emit('update:rover_message', 'Rover ' + props.rover_selected + ': (' + response.data.row + ',' + response.data.column + '), ' + response.data.direction);
         })
         .catch(function (error) {
+            loading.value = false;
             switch (error.status) {
                 case 422:
                     sequence_outcome_message.value = error.response.data.message;
